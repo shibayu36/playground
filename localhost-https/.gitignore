@@ -1,1 +1,3 @@
 /conf/nginx/ssl/server.key
+/conf/nginx/ssl/server.crt
+/conf/nginx/ssl/server.csr
