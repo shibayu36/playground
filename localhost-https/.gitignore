@@ -1,3 +1,4 @@
-/conf/nginx/ssl/server.key
-/conf/nginx/ssl/server.crt
-/conf/nginx/ssl/server.csr
+/conf/nginx/ssl/*.key
+/conf/nginx/ssl/*.crt
+/conf/nginx/ssl/*.csr
+/conf/pki/RootCA
