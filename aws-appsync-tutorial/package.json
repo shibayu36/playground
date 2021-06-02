@@ -1,0 +1,14 @@
+{
+  "name": "aws-appsync-tutorial",
+  "version": "1.0.0",
+  "description": "",
+  "dependencies": {},
+  "devDependencies": {
+    "serverless": "^2.43.1",
+    "serverless-appsync-plugin": "^1.11.3"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "shibayu36 <shibayu36@gmail.com> (https://github.com/shibayu36)"
+}
