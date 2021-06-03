@@ -1,6 +1,6 @@
 service: shibayu36-aws-appsync-tutorial
 
-frameworkVersion: ">=1.48.0 <2.0.0"
+frameworkVersion: ">=2.0.0"
 
 provider:
   name: aws
