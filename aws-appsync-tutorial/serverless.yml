@@ -6,7 +6,7 @@ provider:
   name: aws
   runtime: nodejs10.x
   stage: dev
-  region: ap-northeast-2
+  region: ap-northeast-1
 
 plugins:
   - serverless-appsync-plugin
@@ -16,10 +16,10 @@ custom:
     name: AwsAppSyncTutorialByShibayu36
     authenticationType: AMAZON_COGNITO_USER_POOLS
     userPoolConfig:
-      awsRegion: ap-northeast-2
+      awsRegion: ap-northeast-1
       defaultAction: ALLOW
       userPoolId: { Ref: AppSyncTutorialUserPool }
-    region: ap-northeast-2
+    region: ap-northeast-1
     mappingTemplatesLocation: resolvers
     mappingTemplates:
       
