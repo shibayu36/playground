@@ -59,6 +59,7 @@ function App() {
 
   return (
     <div className="App">
+      <h1>Todo List</h1>
       <button onClick={createNewTodo}>Add Todo</button>
       <div>
         {state.todos.length > 0 ?
