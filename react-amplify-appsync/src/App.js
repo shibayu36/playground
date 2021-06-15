@@ -3,7 +3,7 @@ import React, { useEffect, useReducer } from "react";
 import API, { graphqlOperation } from "@aws-amplify/api";
 import PubSub from "@aws-amplify/pubsub";
 
-import { createTodo } from "./graphql/mutations";
+import { createTodo, createTodoList } from "./graphql/mutations";
 import { listTodos } from "./graphql/queries";
 import { onCreateTodo } from "./graphql/subscriptions";
 
@@ -37,10 +37,16 @@ async function createNewTodo() {
   await API.graphql(graphqlOperation(createTodo, { input: todo }));
 }
 
+async function createNewTodoList(num) {
+  const todoList = { name: `New TodoList ${num}` };
+  await API.graphql(graphqlOperation(createTodoList, { input: todoList }));
+}
+
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
+    // TodoListとTodo含めて全体を一斉に読み込むようにしたい
     async function getData() {
       const todoData = await API.graphql(graphqlOperation(listTodos));
       dispatch({ type: QUERY, todos: todoData.data.listTodos.items });
@@ -57,6 +63,8 @@ function App() {
     return () => subscription.unsubscribe();
   }, []);
 
+  // TodoListを作れるように
+  // TodoList配下にTodoを作れるように
   return (
     <div className="App">
       <h1>Todo List</h1>
