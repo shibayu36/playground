@@ -4,7 +4,7 @@ import API, { graphqlOperation } from "@aws-amplify/api";
 import PubSub from "@aws-amplify/pubsub";
 
 import { createTodo, createTodoList } from "./graphql/mutations";
-import { listTodos } from "./graphql/queries";
+import { listTodoLists } from "./graphql/queries";
 import { onCreateTodo } from "./graphql/subscriptions";
 
 import awsconfig from "./aws-exports";
@@ -18,13 +18,13 @@ const QUERY = "QUERY";
 const SUBSCRIPTION = "SUBSCRIPTION";
 
 const initialState = {
-  todos: [],
+  todoLists: [],
 };
 
 const reducer = (state, action) => {
   switch (action.type) {
     case QUERY:
-      return { ...state, todos: action.todos };
+      return { ...state, todoLists: action.todoLists };
     case SUBSCRIPTION:
       return { ...state, todos: [...state.todos, action.todo ]}
     default:
@@ -48,19 +48,19 @@ function App() {
   useEffect(() => {
     // TodoListとTodo含めて全体を一斉に読み込むようにしたい
     async function getData() {
-      const todoData = await API.graphql(graphqlOperation(listTodos));
-      dispatch({ type: QUERY, todos: todoData.data.listTodos.items });
+      const todoListData = await API.graphql(graphqlOperation(listTodoLists));
+      dispatch({ type: QUERY, todoLists: todoListData.data.listTodoLists.items });
     }
     getData();
 
-    const subscription = API.graphql(graphqlOperation(onCreateTodo)).subscribe({
-      next: (eventData) => {
-        const todo = eventData.value.data.onCreateTodo;
-        dispatch({ type: SUBSCRIPTION, todo });
-      }
-    })
+    // const subscription = API.graphql(graphqlOperation(onCreateTodo)).subscribe({
+    //   next: (eventData) => {
+    //     const todo = eventData.value.data.onCreateTodo;
+    //     dispatch({ type: SUBSCRIPTION, todo });
+    //   }
+    // })
 
-    return () => subscription.unsubscribe();
+  //   return () => subscription.unsubscribe();
   }, []);
 
   // TodoListを作れるように
@@ -68,11 +68,11 @@ function App() {
   return (
     <div className="App">
       <h1>Todo List</h1>
-      <button onClick={createNewTodo}>Add Todo</button>
+      <button onClick={() => { createNewTodoList(state.todoLists.length + 1) }}>Add TodoList</button>
       <div>
-        {state.todos.length > 0 ?
-          state.todos.map((todo) => <p key={todo.id}>{todo.name} : {todo.description}</p>) :
-          <p>Add some todos!</p>
+        {state.todoLists.length > 0 ?
+          state.todoLists.map((todoList) => <p key={todoList.id}>{todoList.name}</p>) :
+          <p>Add some todoLists!</p>
         }
       </div>
     </div>
