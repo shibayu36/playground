@@ -1,5 +1,8 @@
 # チュートリアルの進行状況
 
+## 2021/06/26
+* https://kubernetes.io/ja/docs/tutorials/kubernetes-basics/deploy-app/deploy-interactive/ が完了
+
 ## 2021/06/24
 * https://kubernetes.io/ja/docs/tutorials/kubernetes-basics/create-cluster/cluster-interactive/ を完了
 * 次回は https://kubernetes.io/ja/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/
