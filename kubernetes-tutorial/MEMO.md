@@ -1,5 +1,8 @@
 # チュートリアルの進行状況
 
+## 2021/06/28
+* https://kubernetes.io/ja/docs/tutorials/kubernetes-basics/expose/expose-interactive/ 完了
+
 ## 2021/06/27
 * https://kubernetes.io/ja/docs/tutorials/kubernetes-basics/explore/explore-interactive/ 完了
 
