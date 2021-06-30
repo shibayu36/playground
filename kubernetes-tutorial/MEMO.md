@@ -1,5 +1,8 @@
 # チュートリアルの進行状況
 
+## 2021/06/30
+* https://kubernetes.io/ja/docs/tutorials/kubernetes-basics/update/update-interactive/ 完了
+
 ## 2021/06/29
 * https://kubernetes.io/ja/docs/tutorials/kubernetes-basics/scale/scale-interactive/ まで完了
 
