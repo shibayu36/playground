@@ -35,6 +35,11 @@ module.exports = {
       }
     }
   },
-  ssr: false
+  ssr: false,
+  plugins: ['~/plugins/auth0.js'],
+  auth0: {
+    domain: 'dev-z4k69gje.us.auth0.com',
+    clientID: 'RiAjnXPVTOSVeO633AP4J9rxX9T4YvDx'
+  }
 }
 
