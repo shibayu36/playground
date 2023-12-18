@@ -2,7 +2,7 @@ terraform {
   cloud {
     organization = "shibayu36"
     workspaces {
-      name = "aws-playground"
+      name = "lock-with-dynamodb"
     }
   }
 }
