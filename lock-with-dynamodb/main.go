@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"time"
 
@@ -39,7 +40,13 @@ func GetLock(lockID string, expiredAt time.Time) (locked bool, release func(), e
 
 	_, err = dbClient.PutItem(context.TODO(), putItemInput)
 	if err != nil {
-		return false, nil, err // Failed to lock
+		var dynamoErr *types.ConditionalCheckFailedException
+		if errors.As(err, &dynamoErr) {
+			// Failed to lock as it's already locked
+			return false, nil, nil
+		}
+		// Failed to lock due to unexpected error
+		return false, nil, err
 	}
 
 	release = func() {
