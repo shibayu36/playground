@@ -15,7 +15,7 @@ import (
 
 const tableName = "lock-table"
 
-func GetLock(lockID string, expiredAt time.Time) (locked bool, release func(), err error) {
+func GetLock(lockID string, expiredAt time.Time) (locked bool, release func() error, err error) {
 	cfg, err := config.LoadDefaultConfig(context.TODO())
 	if err != nil {
 		return false, nil, err
@@ -49,7 +49,7 @@ func GetLock(lockID string, expiredAt time.Time) (locked bool, release func(), e
 		return false, nil, err
 	}
 
-	release = func() {
+	release = func() error {
 		deleteItemInput := &dynamodb.DeleteItemInput{
 			TableName: aws.String(tableName),
 			Key: map[string]types.AttributeValue{
@@ -58,8 +58,9 @@ func GetLock(lockID string, expiredAt time.Time) (locked bool, release func(), e
 		}
 		_, err := dbClient.DeleteItem(context.TODO(), deleteItemInput)
 		if err != nil {
-			fmt.Println("Failed to release lock:", err)
+			return err
 		}
+		return nil
 	}
 
 	return true, release, nil
