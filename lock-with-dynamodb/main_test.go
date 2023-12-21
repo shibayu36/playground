@@ -25,3 +25,23 @@ func TestLock(t *testing.T) {
 	require.NoError(t, err)
 	assert.True(t, locked3, "lock succeeded because lock1 was released")
 }
+
+func TestLockExpired(t *testing.T) {
+	expiredAt := time.Now().UTC().Add(3 * time.Second)
+
+	locked1, _, err := GetLock("lock1_with_expired", expiredAt)
+	require.NoError(t, err)
+	assert.True(t, locked1)
+
+	locked2, _, err := GetLock("lock1_with_expired", expiredAt)
+	require.NoError(t, err)
+	assert.False(t, locked2, "lock failed because of lock1_with_expired")
+
+	time.Sleep(3 * time.Second)
+
+	locked3, release, err := GetLock("lock1_with_expired", expiredAt)
+	require.NoError(t, err)
+	assert.True(t, locked3, "lock succeeded because lock1_with_expired was expired")
+
+	release()
+}
