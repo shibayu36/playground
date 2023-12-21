@@ -55,9 +55,19 @@ func GetLock(lockID string, expiredAt time.Time) (locked bool, release func() er
 			Key: map[string]types.AttributeValue{
 				"LockID": &types.AttributeValueMemberS{Value: lockID},
 			},
+			ConditionExpression: aws.String("ReleaseID = :releaseID"),
+			ExpressionAttributeValues: map[string]types.AttributeValue{
+				":releaseID": &types.AttributeValueMemberS{Value: releaseID},
+			},
 		}
 		_, err := dbClient.DeleteItem(context.TODO(), deleteItemInput)
 		if err != nil {
+			var dynamoErr *types.ConditionalCheckFailedException
+			if errors.As(err, &dynamoErr) {
+				fmt.Println("release: failed to release as it's locked by another process")
+				// Failed to release as it's locked by another process
+				return nil
+			}
 			return err
 		}
 		return nil
