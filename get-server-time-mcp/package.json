@@ -1,4 +1,7 @@
 {
+  "scripts": {
+    "build": "tsc --outDir build"
+  },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.10.1"
   },
