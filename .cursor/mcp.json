@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "get-server-time-mcp": {
+      "command": "node",
+      "args": ["/Users/shibayu36/development/src/github.com/shibayu36/playground/get-server-time-mcp/build/index.js"]
+    }
+  }
+}
