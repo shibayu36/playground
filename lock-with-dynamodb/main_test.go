@@ -45,7 +45,10 @@ func TestLockExpired(t *testing.T) {
 	require.NoError(t, err)
 	assert.True(t, locked3, "lock succeeded because lock1_with_expired was expired")
 
-	release()
+	defer func() {
+		err := release()
+		require.NoError(t, err)
+	}()
 }
 
 func TestReleaseByOther(t *testing.T) {
